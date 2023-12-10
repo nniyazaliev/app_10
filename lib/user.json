@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "id": "Jy7ViMdhePsvAdvRrPL3",
+      "name": "Nurbol",
+      "age": 24,
+      "hasPaid": false
+    },
+
+    {
+      "id": "IfuCt5xtRAEHQf58WbSL",
+      "name": "Argen",
+      "age": 23,
+      "hasPaid": true
+    }
+  ]
+}
