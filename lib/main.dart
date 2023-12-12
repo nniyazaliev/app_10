@@ -1,4 +1,9 @@
+import 'dart:developer';
+
 import 'package:app_10/firebase_options.dart';
+import 'package:app_10/home_page.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -18,11 +23,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomePage(),
     );
   }
 }
@@ -42,6 +48,31 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final firestore = FirebaseFirestore.instance;
+
+  Future getUsers() async {
+    final response = await firestore.collection('users').get();
+
+    final data = response.docs;
+
+    for (final element in data) {
+      log('element = $element');
+    }
+
+    await firestore.collection('users').get().then((response) {
+      for (var doc in response.docs) {
+        log("${doc.id} => ${doc.data()}");
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    //await getUsers();
+
+    super.initState();
+  }
+
   int _counter = 0;
 
   void _incrementCounter() {
